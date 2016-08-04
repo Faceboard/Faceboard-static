@@ -3,20 +3,26 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "6.2.2",
+    "npm": "3.9.5"
+  },
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ronolibert/Faceboard-static.git"
+    "url": "git+https://github.com/HRR17-Cauliflower/Faceboard-static.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Ronolibert/Faceboard-static/issues"
+    "url": "https://github.com/HRR17-Cauliflower/Faceboard-static/issues"
   },
-  "homepage": "https://github.com/Ronolibert/Faceboard-static#readme",
+  "homepage": "https://github.com/HRR17-Cauliflower/Faceboard-static#readme",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "nodemon": "^1.10.0"
   }
 }
