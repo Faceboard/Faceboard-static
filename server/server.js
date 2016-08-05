@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var userRoutes = require('./db/users/userRoutes');
+var sessionRoutes = require('./db/sessions/sessionRoutes');
 var bodyParser = require('body-parser');
 var db = require('./db/db');
 
@@ -17,6 +18,7 @@ app.post('/signup', userRoutes.signUp);
 app.post('/signin', userRoutes.signIn);
 app.post('/session/:sessionid', userRoutes.updateSession);
 app.get('/findUser', userRoutes.findOneUser);
+app.post('/session/start', sessionRoutes.start);
 
 db.sync().then(function () {
   app.listen(port, function() {
