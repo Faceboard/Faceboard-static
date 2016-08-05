@@ -43,10 +43,11 @@ User.signIn = function (username, password) {
     });
 };
 
-User.updateSession = function (username, sessionid) {
-  return User.findOne({ where: {userid: username }})
-    .then(function(user) {
-      user.sessionid = sessionid;
+User.updateSession = function (id, newSessionId) {
+  return User.findById(id)
+    .then(function (user) {
+      console.log(user);
+      user.sessionid = newSessionId;
       user.save();
     });
 };
