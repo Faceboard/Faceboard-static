@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/HRR17-Cauliflower/Faceboard-static#readme",
   "dependencies": {
-    "bcrypt": "^0.8.7",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.4.1",
     "body-parser": "^1.15.2",

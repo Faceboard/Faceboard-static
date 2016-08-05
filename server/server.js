@@ -14,13 +14,10 @@ app.get('/', function(req, res) {
 })
 
 app.post('/signup', userRoutes.signUp);
+app.post('/signin', userRoutes.signIn);
 
 db.sync().then(function () {
   app.listen(port, function() {
     console.log('Listening on', port);
   });
-})
-// app.listen(port, function() {
-//   console.log('Listening on', port);
-// });
-
+});
