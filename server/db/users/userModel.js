@@ -26,5 +26,6 @@ User.signUp = function(name, password){
   User.findOrCreate({ where: { userId: name }, defaults: { password: password }})
     .spread(function(user, created){
       console.log('This is user in usermodel: ', user);
-    })
+      return created;
+    });
 }
