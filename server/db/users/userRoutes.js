@@ -28,5 +28,25 @@ module.exports = {
       .then(function (created) {
         res.sendStatus(created ? 201 : 'Not created');
       });
+  },
+
+  updateSession: function (req, res) {
+    // gives username
+    var userId = jwt.decode(req.headers['x-access-token'], secret).id;
+    var sessionId = req.params.sessionid;
+
+    User.updateSession(userId, sessionId)
+      .then(function() {
+        res.sendStatus(204);
+      });
+  },
+
+  findOneUser: function (req, res) {
+    var userId = jwt.decode(req.headers['x-access-token'], secret).id;
+
+    User.findById(userId)
+      .then(function(user) {
+        res.json(user);
+      });
   }
 };
