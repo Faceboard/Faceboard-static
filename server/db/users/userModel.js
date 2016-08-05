@@ -29,4 +29,18 @@ User.signUp = function (name, password) {
     });
 };
 
+User.signIn = function (username, password) {
+  return User.findOne({ where: {userid: username } })
+    .then(function (user) {
+      if (!user) {
+        return null;
+      } else {
+        return User.comparePassword(password, user.password)
+          .then(function (match) {
+            return match ? user : null;
+          });
+      }
+    });
+};
+
 module.exports = User;
