@@ -26,7 +26,7 @@ module.exports = {
 
     User.signUp(name, password)
       .then(function (created) {
-        res.sendStatus(created ? 201 : 'Not created');
+        res.sendStatus(created ? 201 : 401);
       });
   },
 
