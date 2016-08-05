@@ -10,3 +10,22 @@ var User = db.define('user', {
 }, {
   timestamps: false
 })
+
+User.hook('beforeCreate', function(user) {
+  return bcrypt.hashAsync(user.password, null, null)
+    .then(function(hash) {
+      user.password = hash;
+    });
+});
+
+User.comparePassword = function(inputPassword, currentPassword){
+  return bcrypt.compareAsync(inputPassword, currentPassword);
+}
+
+User.signUp = function(name, password){
+  User.findOrCreate({ where: { userId: name }, defaults: { password: password }})
+    .spread(function(user, created){
+      console.log('This is user in usermodel: ', user);
+      return created;
+    });
+}
