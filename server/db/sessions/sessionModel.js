@@ -7,10 +7,9 @@ var Session = db.define('session', {
   userTwoid: Sequelize.STRING
 });
 
-Session.start = function(username) {
+Session.startSession = function(username) {
   return Session.create({ userOneid: username })
-    .spread(function(session, created) {
-      console.log("this is in session model: ", session)
+    .then(function(created) {
         return created;
     });
 };
@@ -18,3 +17,5 @@ Session.start = function(username) {
 Session.invite = function(username, sessionid) {
 
 };
+
+module.exports = Session;

@@ -6,7 +6,7 @@ var db = require('../db');
 var User = db.define('user', {
   userid: Sequelize.STRING,
   password: Sequelize.STRING,
-  sessionid: Sequelize.STRING
+  sessionid: Sequelize.INTEGER
 }, {
   timestamps: false
 })
