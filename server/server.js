@@ -15,6 +15,8 @@ app.get('/', function(req, res) {
 
 app.post('/signup', userRoutes.signUp);
 app.post('/signin', userRoutes.signIn);
+app.post('/session/:sessionid', userRoutes.updateSession);
+app.get('/findUser', userRoutes.findOneUser);
 
 db.sync().then(function () {
   app.listen(port, function() {

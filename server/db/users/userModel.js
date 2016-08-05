@@ -6,7 +6,7 @@ var db = require('../db');
 var User = db.define('user', {
   userid: Sequelize.STRING,
   password: Sequelize.STRING,
-  token: Sequelize.STRING
+  sessionid: Sequelize.STRING
 }, {
   timestamps: false
 })
@@ -40,6 +40,14 @@ User.signIn = function (username, password) {
             return match ? user : null;
           });
       }
+    });
+};
+
+User.updateSession = function (username, sessionid) {
+  return User.findOne({ where: {userid: username }})
+    .then(function(user) {
+      user.sessionid = sessionid;
+      user.save();
     });
 };
 
