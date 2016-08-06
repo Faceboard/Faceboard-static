@@ -46,7 +46,7 @@ module.exports = {
 
     User.updateSession(userId, sessionId)
       .then(function() {
-        res.sendStatus(201, 'User session updated');
+        res.sendStatus(201, 'User session updated'); // need to find working status code for updates
       });
   }
 };

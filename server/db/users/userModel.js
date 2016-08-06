@@ -46,9 +46,15 @@ User.signIn = function (username, password) {
 User.updateSession = function (id, newSessionId) {
   return User.findById(id)
     .then(function (user) {
-      console.log(user);
       user.sessionid = newSessionId;
       user.save();
+    });
+};
+
+User.findSessionId = function (userId) {
+  return User.findById(userId)
+    .then(function(user) {
+      return user.sessionid;
     });
 };
 

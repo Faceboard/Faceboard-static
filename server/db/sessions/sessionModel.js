@@ -1,5 +1,4 @@
 var Sequelize = require('sequelize');
-var bluebird = require('bluebird');
 var db = require('../db');
 
 var Session = db.define('session', {
@@ -7,10 +6,10 @@ var Session = db.define('session', {
   userTwoid: Sequelize.INTEGER
 });
 
-Session.startSession = function(username) {
-  return Session.create({userOneid: username})
+Session.startSession = function(userId) {
+  return Session.create({userOneid: userId})
     .then(function(created) {
-        return created;
+      return created;
     });
 };
 
