@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
   res.sendFile('/index.html', { root: __dirname });
-})
+});
 
 app.post('/signup', userRoutes.signUp);
 app.post('/signin', userRoutes.signIn);
