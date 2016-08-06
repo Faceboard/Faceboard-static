@@ -39,6 +39,14 @@ module.exports = {
       });
   },
 
+  findByUserId: function (req, res) {
+    var id = req.body.userId;
+    User.findUserById(id)
+      .then(function (user) {
+        res.json(user);
+      });
+  },
+
   updateSession: function (req, res) {
     // gives userid
     var userId = jwt.decode(req.headers['x-access-token'], secret).id;

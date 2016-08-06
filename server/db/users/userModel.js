@@ -58,4 +58,11 @@ User.findSessionId = function (userId) {
     });
 };
 
+User.findUserById = function (userId) {
+  return User.findById(userId)
+    .then(function (user) {
+      return user;
+    })
+};
+
 module.exports = User;

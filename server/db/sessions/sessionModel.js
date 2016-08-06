@@ -1,19 +1,27 @@
 var Sequelize = require('sequelize');
 var db = require('../db');
+var User = require('../users/userModel');
 
 var Session = db.define('session', {
+  sessionName: Sequelize.STRING,
   userOneid: Sequelize.INTEGER,
   userTwoid: Sequelize.INTEGER
 });
 
-Session.startSession = function(userId) {
-  return Session.create({userOneid: userId})
-    .then(function(created) {
-      return created;
+Session.startSession = function(sessionName, userId) {
+  return Session.create({sessionName: sessionName, userOneid: userId})
+    .then(function(session) {
+      return session;
     });
 };
 
-Session.invite = function(username, sessionid) {
+Session.inviteToSession = function(sessionId, invitedUserId) {
+  return Session.findById(sessionId)
+    .then(function (session) {
+      session.userTwoid = invitedUserId;
+      session.save();
+      return session;
+    });
 
 };
 
