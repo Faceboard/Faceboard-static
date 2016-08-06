@@ -4,8 +4,11 @@ var userRoutes = require('./db/users/userRoutes');
 var sessionRoutes = require('./db/sessions/sessionRoutes');
 var bodyParser = require('body-parser');
 var db = require('./db/db');
+var http = require('http');
 
 var app = express();
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
 var port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
@@ -22,7 +25,7 @@ app.post('/session/start', sessionRoutes.startSession);
 app.post('/session/addUser', sessionRoutes.inviteToSession);
 
 db.sync().then(function () {
-  app.listen(port, function() {
-    console.log('Listening on', port);
+  server.listen(port, function() {
+    console.log('listening to', port);
   });
 });

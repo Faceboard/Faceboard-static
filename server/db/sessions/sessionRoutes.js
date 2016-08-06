@@ -8,7 +8,7 @@ module.exports = {
     var userId = jwt.decode(req.headers['x-access-token'], secret).id;
     var name = req.body.sessionName;
     Session.startSession(name, userId)
-      .then(function (session) {
+      .then(function(session) {
         res.json(session);
       });
   },
@@ -19,7 +19,7 @@ module.exports = {
     var secondUserId = req.body.secondId;
 
     Session.inviteToSession(sesh, secondUserId)
-      .then(function (session) {
+      .then(function(session) {
         res.json(session);
       });
   }

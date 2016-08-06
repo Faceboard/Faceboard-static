@@ -20,7 +20,6 @@ module.exports = {
   },
 
   signUp: function (req, res) {
-
     var name = req.body.username;
     var password = req.body.password;
 
@@ -41,6 +40,7 @@ module.exports = {
 
   findByUserId: function (req, res) {
     var id = req.body.userId;
+
     User.findUserById(id)
       .then(function (user) {
         res.json(user);

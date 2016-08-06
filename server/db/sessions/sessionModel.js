@@ -17,7 +17,7 @@ Session.startSession = function(sessionName, userId) {
 
 Session.inviteToSession = function(sessionId, invitedUserId) {
   return Session.findById(sessionId)
-    .then(function (session) {
+    .then(function(session) {
       session.userTwoid = invitedUserId;
       session.save();
       return session;

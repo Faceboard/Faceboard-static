@@ -48,6 +48,7 @@ User.updateSession = function (id, newSessionId) {
     .then(function (user) {
       user.sessionid = newSessionId;
       user.save();
+      return user;
     });
 };
 
