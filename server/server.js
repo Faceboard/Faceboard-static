@@ -17,13 +17,14 @@ app.get('/', function(req, res) {
   res.sendFile('/index.html', { root: __dirname });
 });
 
-app.post('/users/signup', userRoutes.signUp);
-app.post('/users/signin', userRoutes.signIn);
-app.get('/users/findUser', userRoutes.findOneUser);
-app.get('/users/findall', userRoutes.findAll);
-app.post('/users/update/:sessionid', userRoutes.updateSession);
-app.post('/session/start', sessionRoutes.startSession);
-app.post('/session/addUser', sessionRoutes.inviteToSession);
+app.post('/users/signup', userRoutes.signUp); // sign up, need unique username
+app.post('/users/signin', userRoutes.signIn); // sign in to get auth token
+app.get('/users/findCurrentUser', userRoutes.findOneUser); // find user by auth token (id)
+app.get('/users/findOne', userRoutes.findByUserId); // find user by sending id for that user
+app.get('/users/findall', userRoutes.findAll);  // find all users
+app.post('/users/update/:sessionid', userRoutes.updateSession); // finds a user to update session
+app.post('/session/start', sessionRoutes.startSession); // start session
+app.post('/session/addUser', sessionRoutes.inviteToSession); // invite another user to session
 
 db.sync().then(function () {
   server.listen(port, function() {
