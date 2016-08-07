@@ -10,7 +10,12 @@ var User = db.define('user', {
       notEmpty: true
     }
   },
-  password: Sequelize.STRING,
+  password: {
+    type: Sequelize.STRING,
+    validate: {
+      notEmpty: true
+    }
+  },
   sessionid: Sequelize.INTEGER
 }, {
   timestamps: false
