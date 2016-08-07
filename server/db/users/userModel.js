@@ -4,8 +4,18 @@ var bcrypt = bluebird.promisifyAll(require('bcrypt-nodejs'));
 var db = require('../db');
 
 var User = db.define('user', {
-  userid: Sequelize.STRING,
-  password: Sequelize.STRING,
+  userid: {
+    type: Sequelize.STRING,
+    validate: {
+      notEmpty: true
+    }
+  },
+  password: {
+    type: Sequelize.STRING,
+    validate: {
+      notEmpty: true
+    }
+  },
   sessionid: Sequelize.INTEGER
 }, {
   timestamps: false
@@ -43,11 +53,26 @@ User.signIn = function (username, password) {
     });
 };
 
-User.updateSession = function (username, sessionid) {
-  return User.findOne({ where: {userid: username }})
-    .then(function(user) {
-      user.sessionid = sessionid;
+User.updateSession = function (id, newSessionId) {
+  return User.findById(id)
+    .then(function (user) {
+      user.sessionid = newSessionId;
       user.save();
+      return user;
+    });
+};
+
+User.findSessionId = function (userId) {
+  return User.findById(userId)
+    .then(function(user) {
+      return user.sessionid;
+    });
+};
+
+User.findUserById = function (userId) {
+  return User.findById(userId)
+    .then(function (user) {
+      return user;
     });
 };
 

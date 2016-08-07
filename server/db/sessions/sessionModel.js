@@ -1,20 +1,32 @@
 var Sequelize = require('sequelize');
-var bluebird = require('bluebird');
 var db = require('../db');
+var User = require('../users/userModel');
 
 var Session = db.define('session', {
-  userOneid: Sequelize.STRING,
-  userTwoid: Sequelize.STRING
+  sessionName: {
+    type: Sequelize.STRING,
+    validate: {
+      notEmpty: true
+    }
+  },
+  userOneid: Sequelize.INTEGER,
+  userTwoid: Sequelize.INTEGER
 });
 
-Session.startSession = function(username) {
-  return Session.create({ userOneid: username })
-    .then(function(created) {
-        return created;
+Session.startSession = function(sessionName, userId) {
+  return Session.create({sessionName: sessionName, userOneid: userId})
+    .then(function(session) {
+      return session;
     });
 };
 
-Session.invite = function(username, sessionid) {
+Session.inviteToSession = function(sessionId, invitedUserId) {
+  return Session.findById(sessionId)
+    .then(function(session) {
+      session.userTwoid = invitedUserId;
+      session.save();
+      return session;
+    });
 
 };
 

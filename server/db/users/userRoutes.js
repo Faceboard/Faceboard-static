@@ -20,24 +20,12 @@ module.exports = {
   },
 
   signUp: function (req, res) {
-
     var name = req.body.username;
     var password = req.body.password;
 
     User.signUp(name, password)
       .then(function (created) {
-        res.sendStatus(created ? 201 : 'Not created');
-      });
-  },
-
-  updateSession: function (req, res) {
-    // gives username
-    var userId = jwt.decode(req.headers['x-access-token'], secret).id;
-    var sessionId = req.params.sessionid;
-
-    User.updateSession(userId, sessionId)
-      .then(function() {
-        res.sendStatus(204);
+        res.sendStatus(created ? 201 : 401);
       });
   },
 
@@ -48,5 +36,33 @@ module.exports = {
       .then(function(user) {
         res.json(user);
       });
+  },
+
+  findByUserId: function (req, res) {
+    var id = req.body.userId;
+
+    User.findUserById(id)
+      .then(function (user) {
+        res.json(user);
+      });
+  },
+
+  findAll: function (req, res) {
+    User.findAll()
+      .then(function (users) {
+        res.json(users);
+      });
+  },
+
+  updateSession: function (req, res) {
+    // gives userid
+    var userId = jwt.decode(req.headers['x-access-token'], secret).id;
+    var sessionId = req.params.sessionid;
+
+    User.updateSession(userId, sessionId)
+      .then(function() {
+        res.sendStatus(201, 'User session updated'); // need to find working status code for updates
+      });
   }
+
 };
