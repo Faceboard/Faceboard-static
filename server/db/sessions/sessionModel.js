@@ -3,7 +3,12 @@ var db = require('../db');
 var User = require('../users/userModel');
 
 var Session = db.define('session', {
-  sessionName: Sequelize.STRING,
+  sessionName: {
+    type: Sequelize.STRING,
+    validate: {
+      notEmpty: true
+    }
+  },
   userOneid: Sequelize.INTEGER,
   userTwoid: Sequelize.INTEGER
 });

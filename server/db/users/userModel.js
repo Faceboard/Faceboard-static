@@ -4,7 +4,12 @@ var bcrypt = bluebird.promisifyAll(require('bcrypt-nodejs'));
 var db = require('../db');
 
 var User = db.define('user', {
-  userid: Sequelize.STRING,
+  userid: {
+    type: Sequelize.STRING,
+    validate: {
+      notEmpty: true
+    }
+  },
   password: Sequelize.STRING,
   sessionid: Sequelize.INTEGER
 }, {
@@ -63,7 +68,7 @@ User.findUserById = function (userId) {
   return User.findById(userId)
     .then(function (user) {
       return user;
-    })
+    });
 };
 
 module.exports = User;

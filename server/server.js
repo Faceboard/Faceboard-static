@@ -17,10 +17,11 @@ app.get('/', function(req, res) {
   res.sendFile('/index.html', { root: __dirname });
 });
 
-app.post('/signup', userRoutes.signUp);
-app.post('/signin', userRoutes.signIn);
-app.get('/findUser', userRoutes.findOneUser);
-app.post('/user/update/:sessionid', userRoutes.updateSession);
+app.post('/users/signup', userRoutes.signUp);
+app.post('/users/signin', userRoutes.signIn);
+app.get('/users/findUser', userRoutes.findOneUser);
+app.get('/users/findall', userRoutes.findAll);
+app.post('/users/update/:sessionid', userRoutes.updateSession);
 app.post('/session/start', sessionRoutes.startSession);
 app.post('/session/addUser', sessionRoutes.inviteToSession);
 

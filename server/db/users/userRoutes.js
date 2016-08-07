@@ -47,6 +47,13 @@ module.exports = {
       });
   },
 
+  findAll: function (req, res) {
+    User.findAll()
+      .then(function (users) {
+        res.json(users);
+      });
+  },
+
   updateSession: function (req, res) {
     // gives userid
     var userId = jwt.decode(req.headers['x-access-token'], secret).id;
@@ -57,4 +64,5 @@ module.exports = {
         res.sendStatus(201, 'User session updated'); // need to find working status code for updates
       });
   }
+
 };
