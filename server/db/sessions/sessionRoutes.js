@@ -1,5 +1,6 @@
 var Session = require('./sessionModel');
 var jwt = require('jwt-simple');
+var User = require('../users/userModel');
 var secret = process.env.AUTH_SECRET || "KeYbOaRdCaT";
 
 module.exports = {
@@ -9,7 +10,11 @@ module.exports = {
     var name = req.body.sessionName;
     Session.startSession(name, userId)
       .then(function(session) {
-        res.json(session);
+        User.updateSession(userId, session.id)
+          .then(function (user) {
+            console.log(user);
+            res.json(session);
+          });
       });
   },
 
