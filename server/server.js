@@ -14,10 +14,6 @@ var io = require('socket.io').listen(server);
 var port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
-app.use('/users/*', function (req, res, next) {
-  io.sockets.emit('remote update', "some string");
-  next();
-});
 
 app.get('/', function(req, res) {
   res.sendFile('/index.html', { root: __dirname });
@@ -41,8 +37,8 @@ db.sync().then(function () {
 });
 
 io.on('connection', function(socket) {
-  socket.on('send', function(data) {
-    socket.emit('sever send msg', data);
-  }
+  socket.on('chat message', function(data) {
+    socket.emit('chat message', data);
+  });
 });
 
