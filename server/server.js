@@ -14,9 +14,10 @@ var io = require('socket.io').listen(server);
 var port = process.env.PORT || 3000;
 var nsp = io.of('/test');
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/'));
 
-app.get('/', function(req, res) {
-  res.sendFile('/index.html', { root: __dirname });
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.post('/users/signup', userRoutes.signUp); // sign up, need unique username
