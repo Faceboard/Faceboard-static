@@ -14,7 +14,7 @@ module.exports = {
           res.sendStatus(401, 'user is not valid');
         } else {
           var token = jwt.encode(foundUser, secret);
-          res.json({token: token});
+          res.json({token: token, user: foundUser});
         }
       });
   },
