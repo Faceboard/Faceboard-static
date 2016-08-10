@@ -37,11 +37,11 @@ db.sync().then(function () {
 });
 
 io.on('connection', function(socket) {
-  socket.on('chat message', function(data) {
-    socket.emit('chat message', data);
+  socket.emit('user connected', 'A USER CONNECTED');
+  socket.on('privateSessionCreation', function(data) {
+    socket.emit('userWantsToCreateSession', data);
   });
   socket.on('make sesssion', function (data) {
     socket.emit('confirm test session', data);
-  })
+  });
 });
-
