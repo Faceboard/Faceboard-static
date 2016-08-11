@@ -50,6 +50,7 @@ nsp.on('connection', function(socket) {
   })
   socket.on('leaveSession', function (roomname) {
     socket.leave(roomname);
+    socket.to(roomname).emit('userHasLeftSession', 'USER HAS LEFT');
   })
   socket.on('make sesssion', function (data) {
     nsp.emit('confirm test session', data);
