@@ -15,7 +15,7 @@ var io = require('socket.io')({
   "polling duration": 20
 }).listen(server);
 var port = process.env.PORT || 3000;
-
+var nsp = io.of('/https://face-board-pr-21.herokuapp.com');
 app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
@@ -39,7 +39,7 @@ db.sync().then(function () {
   });
 });
 
-io.on('connection', function(socket) {
+nsp.on('connection', function(socket) {
   socket.emit('user connected', 'A USER CONNECTED');
   socket.on('privateSessionCreation', function(data) {
     socket.emit('userWantsToCreateSession', data);
