@@ -15,8 +15,8 @@ var port = process.env.PORT || 3000;
 var nsp = io.of('/test');
 app.use(bodyParser.json());
 
-app.get('/', function(req, res) {
-  res.sendFile('/index.html', { root: __dirname });
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.post('/users/signup', userRoutes.signUp); // sign up, need unique username
@@ -39,8 +39,19 @@ db.sync().then(function () {
 nsp.on('connection', function(socket) {
   nsp.emit('user connected', 'A USER CONNECTED');
   socket.on('privateSessionCreation', function(data) {
+    var roomname = data.firstUserName + data.secondUserName;
+    socket.join(roomname);
     nsp.emit('userWantsToCreateSession', data);
   });
+  socket.on('userWantsToJoinSession', function (data) {
+    var roomname = data.firstUserName + data.secondUserName;
+    socket.join(roomname);
+    nsp.to(roomname).emit('userHasJoinedSession', 'USER JOINED');
+  })
+  socket.on('leaveSession', function (roomname) {
+    socket.leave(roomname);
+    socket.to(roomname).emit('userHasLeftSession', 'USER HAS LEFT');
+  })
   socket.on('make sesssion', function (data) {
     nsp.emit('confirm test session', data);
   });
