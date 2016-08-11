@@ -11,8 +11,12 @@ var app = express();
 var server = http.createServer(app);
 
 var io = require('socket.io').listen(server);
-// var port = process.env.PORT || 3000;
-var port = 80;
+var port = process.env.PORT || 3000;
+
+io.configure(function () {
+  io.set("transports", ["xhr-polling"]);
+  io.set("polling duration", 10);
+});
 
 app.use(bodyParser.json());
 
