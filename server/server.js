@@ -10,13 +10,11 @@ var http = require('http');
 var app = express();
 var server = http.createServer(app);
 
-var io = require('socket.io').listen(server);
+var io = require('socket.io')({
+  "transports": ["xhr-polling"],
+  "polling duration": 20
+}).listen(server);
 var port = process.env.PORT || 3000;
-
-io.configure(function () {
-  io.set("transports", ["xhr-polling"]);
-  io.set("polling duration", 10);
-});
 
 app.use(bodyParser.json());
 
