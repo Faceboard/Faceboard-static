@@ -40,11 +40,11 @@ db.sync().then(function () {
 });
 
 nsp.on('connection', function(socket) {
-  socket.emit('user connected', 'A USER CONNECTED');
+  nsp.emit('user connected', 'A USER CONNECTED');
   socket.on('privateSessionCreation', function(data) {
-    socket.emit('userWantsToCreateSession', data);
+    nsp.emit('userWantsToCreateSession', data);
   });
   socket.on('make sesssion', function (data) {
-    socket.emit('confirm test session', data);
+    nsp.emit('confirm test session', data);
   });
 });
