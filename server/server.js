@@ -12,7 +12,7 @@ var server = http.createServer(app);
 
 var io = require('socket.io').listen(server);
 var port = process.env.PORT || 3000;
-
+var nsp = io.of('/test');
 app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
@@ -36,9 +36,12 @@ db.sync().then(function () {
   });
 });
 
-io.on('connection', function(socket) {
-  socket.on('chat message', function(data) {
-    socket.emit('chat message', data);
+nsp.on('connection', function(socket) {
+  nsp.emit('user connected', 'A USER CONNECTED');
+  socket.on('privateSessionCreation', function(data) {
+    nsp.emit('userWantsToCreateSession', data);
+  });
+  socket.on('make sesssion', function (data) {
+    nsp.emit('confirm test session', data);
   });
 });
-
