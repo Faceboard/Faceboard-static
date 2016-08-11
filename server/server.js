@@ -46,7 +46,10 @@ nsp.on('connection', function(socket) {
   socket.on('userWantsToJoinSession', function (data) {
     var roomname = data.firstUserName + data.secondUserName;
     socket.join(roomname);
-    nsp.to(roomname).emit('userHasJoinedSession', 'USER JOINED');    
+    nsp.to(roomname).emit('userHasJoinedSession', 'USER JOINED');
+  })
+  socket.on('leaveSession', function (roomname) {
+    socket.leave(roomname);
   })
   socket.on('make sesssion', function (data) {
     nsp.emit('confirm test session', data);
