@@ -11,7 +11,7 @@ var app = express();
 var server = http.createServer(app);
 
 var io = require('socket.io')({
-  "transports": ["polling"],
+  "transports": ["polling", "websocket"],
   "polling duration": 20
 }).listen(server);
 var port = process.env.PORT || 3000;
