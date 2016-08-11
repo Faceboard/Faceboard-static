@@ -13,6 +13,7 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 var port = process.env.PORT || 3000;
 var nsp = io.of('/test');
+var nsp1 = io.of('/sessionTest');
 app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
@@ -44,4 +45,14 @@ nsp.on('connection', function(socket) {
   socket.on('make sesssion', function (data) {
     nsp.emit('confirm test session', data);
   });
+});
+
+nsp1.on('connection', function(socket) {
+  nsp1.emit('user connected', 'A USER CONNECTED');
+  socket.on('make super session', function (data) {
+    nsp.emit('yea', data);
+  })
+  socket.on('make super private sess', function(data) {
+    nsp.emit('super private', data);
+  })
 });
