@@ -14,7 +14,6 @@ var io = require('socket.io').listen(server);
 var port = process.env.PORT || 3000;
 var nsp = io.of('/test');
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/'));
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
@@ -40,9 +39,15 @@ db.sync().then(function () {
 nsp.on('connection', function(socket) {
   nsp.emit('user connected', 'A USER CONNECTED');
   socket.on('privateSessionCreation', function(data) {
-    nsp.emit('userWantsToCreateSession', data);
+    console.log('privateSessionCreation');
+    var roomname = data.firstUserName + data.secondUserName;
+    socket.join(roomname);
+    nsp.in(roomname).emit('userWantsToCreateSession', roomname);
   });
   socket.on('make sesssion', function (data) {
     nsp.emit('confirm test session', data);
   });
+  socket.on('testing', function (roomname) {
+    nsp.in(roomname).emit('privateTest', roomname);
+  })
 });
