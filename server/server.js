@@ -10,10 +10,7 @@ var http = require('http');
 var app = express();
 var server = http.createServer(app);
 
-var io = require('socket.io')({
-  "transports": ["polling", "websocket"],
-  "polling duration": 20
-}).listen(server);
+var io = require('socket.io').listen(server);
 var port = process.env.PORT || 3000;
 var nsp = io.of('/test');
 app.use(bodyParser.json());
