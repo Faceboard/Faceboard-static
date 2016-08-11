@@ -11,7 +11,8 @@ var app = express();
 var server = http.createServer(app);
 
 var io = require('socket.io').listen(server);
-var port = process.env.PORT || 3000;
+// var port = process.env.PORT || 3000;
+var port = 80;
 
 app.use(bodyParser.json());
 
