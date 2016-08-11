@@ -39,15 +39,16 @@ db.sync().then(function () {
 nsp.on('connection', function(socket) {
   nsp.emit('user connected', 'A USER CONNECTED');
   socket.on('privateSessionCreation', function(data) {
-    console.log('privateSessionCreation');
     var roomname = data.firstUserName + data.secondUserName;
     socket.join(roomname);
-    nsp.in(roomname).emit('userWantsToCreateSession', roomname);
+    nsp.emit('userWantsToCreateSession', data);
   });
+  socket.on('userWantsToJoinSession', function (data) {
+    var roomname = data.firstUserName + data.secondUserName;
+    socket.join(roomname);
+    nsp.to(roomname).emit('userHasJoinedSession', 'USER JOINED');    
+  })
   socket.on('make sesssion', function (data) {
     nsp.emit('confirm test session', data);
   });
-  socket.on('testing', function (roomname) {
-    nsp.in(roomname).emit('privateTest', roomname);
-  })
 });
