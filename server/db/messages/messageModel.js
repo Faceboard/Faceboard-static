@@ -2,12 +2,7 @@ var Sequelize = require('sequelize');
 var db = require('../db');
 
 var Message = db.define('message', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  text: Sequelize.TEXT,
+  text: { type: Sequelize.TEXT, validate: { notEmpty: true } },
   user: Sequelize.STRING,
   visible: {
     type: Sequelize.BOOLEAN,

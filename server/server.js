@@ -3,6 +3,7 @@ var path = require('path');
 var userRoutes = require('./db/users/userRoutes');
 var sessionRoutes = require('./db/sessions/sessionRoutes');
 var messageRoutes = require('./db/messages/messageRoutes');
+var Message = require('./db/messages/messageModel');
 var bodyParser = require('body-parser');
 var db = require('./db/db');
 var http = require('http');
@@ -54,5 +55,9 @@ nsp.on('connection', function(socket) {
   })
   socket.on('make sesssion', function (data) {
     nsp.emit('confirm test session', data);
+  });
+  socket.on('make message', function (data) {
+    nsp.emit('confirm message', data);
+    Message.create({ text: data.text, user: data.username });
   });
 });
