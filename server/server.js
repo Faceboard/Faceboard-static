@@ -11,10 +11,10 @@ var port = process.env.PORT || 3000;
 var io = require('socket.io').listen(server);
 var nsp = io.of('/test');
 
+app.use(bodyParser.json());
+
 require('./socket')(nsp);
 require('./routes.js')(app, express);
-
-app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
