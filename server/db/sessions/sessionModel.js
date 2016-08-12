@@ -13,21 +13,20 @@ var Session = db.define('session', {
   userTwoid: Sequelize.INTEGER
 });
 
-Session.startSession = function(sessionName, userId) {
+Session.startSession = function (sessionName, userId) {
   return Session.create({sessionName: sessionName, userOneid: userId})
-    .then(function(session) {
+    .then(function (session) {
       return session;
     });
 };
 
-Session.inviteToSession = function(sessionId, invitedUserId) {
+Session.inviteToSession = function (sessionId, invitedUserId) {
   return Session.findById(sessionId)
-    .then(function(session) {
+    .then(function (session) {
       session.userTwoid = invitedUserId;
       session.save();
       return session;
     });
-
 };
 
 module.exports = Session;

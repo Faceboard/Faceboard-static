@@ -1,5 +1,5 @@
-function initSocket(nsp) {
-  nsp.on('connection', function(socket) {
+function initSocket (nsp) {
+  nsp.on('connection', function (socket) {
     nsp.emit('user connected', 'A USER CONNECTED');
 
     socket.on('privateSessionCreation', function (data) {
@@ -22,7 +22,6 @@ function initSocket(nsp) {
     socket.on('make sesssion', function (data) {
       nsp.emit('confirm test session', data);
     });
-
   });
 }
 

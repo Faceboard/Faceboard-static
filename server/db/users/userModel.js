@@ -19,10 +19,10 @@ var User = db.define('user', {
   sessionid: Sequelize.INTEGER
 }, {
   timestamps: false
-})
+});
 
 User.hook('beforeCreate', function (user) {
-  return bcrypt.hashAsync (user.password, null, null)
+  return bcrypt.hashAsync(user.password, null, null)
     .then(function (hash) {
       user.password = hash;
     });
@@ -34,7 +34,7 @@ User.comparePassword = function (possPassword, currPassword) {
 
 User.signUp = function (name, password) {
   return User.findOrCreate({ where: { userid: name }, defaults: { password: password }})
-    .spread(function(user, created) {
+    .spread(function (user, created) {
       return created;
     });
 };
@@ -44,12 +44,11 @@ User.signIn = function (username, password) {
     .then(function (user) {
       if (!user) {
         return null;
-      } else {
-        return User.comparePassword(password, user.password)
-          .then(function (match) {
-            return match ? user : null;
-          });
       }
+      return User.comparePassword(password, user.password)
+        .then(function (match) {
+          return match ? user : null;
+        });
     });
 };
 
