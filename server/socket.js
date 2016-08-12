@@ -1,3 +1,5 @@
+var Message = require('./db/messages/messageModel');
+
 function initSocket(nsp) {
   nsp.on('connection', function(socket) {
     nsp.emit('user connected', 'A USER CONNECTED');
@@ -22,6 +24,13 @@ function initSocket(nsp) {
     socket.on('make sesssion', function (data) {
       nsp.emit('confirm test session', data);
     });
+
+    socket.on('send message', function (data) {
+      Message.newMessage(data.text, data.username)
+        .then(function (msgObj) {
+          nsp.emit('send message', msgObj);
+        })
+    })
 
   });
 }
