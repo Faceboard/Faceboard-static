@@ -6,7 +6,7 @@ var pgp = require('pg-promise');
 describe('User table', function () {
   var db;
 
-  before(function() {
+  before(function () {
     return User.sync()
       .then(function () {
         // left blank on purpose
@@ -46,7 +46,7 @@ describe('User table', function () {
         'test Joe'
       ]);
     })
-    .then(function(result) {
+    .then(function (result) {
       expect(result.length).to.not.equal(0);
     });
   });
@@ -87,8 +87,8 @@ describe('User table', function () {
       });
     })
     .then(function (result) {
-      epxect(result.password).to.not.equal('ryoIsTheBest194723');
-    })
+      expect(result.password).to.not.equal('ryoIsTheBest194723');
+    });
   });
 
   it('should fail when searching for a nonexistent user', function () {
@@ -101,4 +101,4 @@ describe('User table', function () {
       expect(result).to.be.null;
     });
   });
-})
+});

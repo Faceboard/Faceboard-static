@@ -17,11 +17,11 @@ require('./socket')(nsp);
 require('./routes.js')(app, express);
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname + '/index.html'));
+  res.sendFile(path.join(__dirname, '/index.html'));
 });
 
 db.sync().then(function () {
-  server.listen(port, function() {
+  server.listen(port, function () {
     console.log('listening to', port);
   });
 });
