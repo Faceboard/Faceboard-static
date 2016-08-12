@@ -1,7 +1,7 @@
 var Session = require('./sessionModel');
 var jwt = require('jwt-simple');
 var User = require('../users/userModel');
-var secret = process.env.AUTH_SECRET || "KeYbOaRdCaT";
+var secret = process.env.AUTH_SECRET || 'KeYbOaRdCaT';
 
 module.exports = {
 
@@ -9,7 +9,7 @@ module.exports = {
     var userId = jwt.decode(req.headers['x-access-token'], secret).id;
     var name = req.body.sessionName;
     Session.startSession(name, userId)
-      .then(function(session) {
+      .then(function (session) {
         User.updateSession(userId, session.id)
           .then(function (user) {
             console.log(user);
@@ -24,7 +24,7 @@ module.exports = {
     var secondUserId = req.body.secondId;
 
     Session.inviteToSession(sesh, secondUserId)
-      .then(function(session) {
+      .then(function (session) {
         res.json(session);
       });
   }

@@ -1,7 +1,7 @@
 var Message = require('./db/messages/messageModel');
 
-function initSocket(nsp) {
-  nsp.on('connection', function(socket) {
+function initSocket (nsp) {
+  nsp.on('connection', function (socket) {
     nsp.emit('user connected', 'A USER CONNECTED');
 
     socket.on('privateSessionCreation', function (data) {
@@ -29,9 +29,8 @@ function initSocket(nsp) {
       Message.newMessage(data.text, data.username)
         .then(function (msgObj) {
           nsp.emit('send message', msgObj);
-        })
-    })
-
+        });
+    });
   });
 }
 

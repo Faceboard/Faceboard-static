@@ -1,6 +1,6 @@
 var User = require('./userModel');
 var jwt = require('jwt-simple');
-var secret = process.env.AUTH_SECRET || "KeYbOaRdCaT";
+var secret = process.env.AUTH_SECRET || 'KeYbOaRdCaT';
 
 module.exports = {
 
@@ -33,7 +33,7 @@ module.exports = {
     var userId = jwt.decode(req.headers['x-access-token'], secret).id;
 
     User.findById(userId)
-      .then(function(user) {
+      .then(function (user) {
         res.json(user);
       });
   },
@@ -60,7 +60,7 @@ module.exports = {
     var sessionId = req.params.sessionid;
 
     User.updateSession(userId, sessionId)
-      .then(function() {
+      .then(function () {
         res.sendStatus(201, 'User session updated'); // need to find working status code for updates
       });
   }
