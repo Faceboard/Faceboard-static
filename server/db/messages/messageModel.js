@@ -16,18 +16,18 @@ var Message = db.define('message', {
 });
 
 Message.findAllMessages = function () {
- return Message.findAll({
+  return Message.findAll({
     attributes: ['id', 'text'],
     where: { visible: true },
     order: '"createdAt" DESC'})
-  .then(function(messages) {
+  .then(function (messages) {
     return messages;
   });
 };
 
 Message.newMessage = function (text, user) {
   return Message.create({ user: user, text: text })
-    .then(function(created){
+    .then(function (created) {
       return created;
     });
 };

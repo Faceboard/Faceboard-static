@@ -10,16 +10,15 @@ module.exports = {
       });
   },
 
-  //post a new message to db
+  // post a new message to db
   newMessage: function (req, res) {
-
     var text = req.body.text;
     var user = req.body.user;
 
     Message.newMessage(text, user)
-      .then(function (created){
+      .then(function (created) {
         res.sendStatus(created ? 201 : 401);
       });
   }
 
-}
+};
