@@ -2,7 +2,7 @@ function initSocket(nsp) {
   nsp.on('connection', function(socket) {
     nsp.emit('user connected', 'A USER CONNECTED');
 
-    socket.on('privateSessionCreation', function(data) {
+    socket.on('privateSessionCreation', function (data) {
       var roomname = data.firstUserName + data.secondUserName;
       socket.join(roomname);
       nsp.emit('userWantsToCreateSession', data);
