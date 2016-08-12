@@ -16,17 +16,3 @@ exports = module.exports = function(io) {
     });
   });
 }
-
-module.exports = function() {
-  var privateSession = io.of('/sessionOne');
-  privateSession.on('connection', function (socket) {
-    socket.join('sessionOne');
-    socket.on('chat msg sent', function (data) {
-      socket.broadcast.to.(privateSession).emit('from server', data);
-    })
-  })
-}
-
-// client side io.connect('herourl/sessionOne')
-// socket.on('chat msg event', data)
-// socket.on('from server', function(data) {do whatever})

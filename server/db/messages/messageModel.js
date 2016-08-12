@@ -15,7 +15,6 @@ var Message = db.define('message', {
   }
 });
 
-
 Message.findAllMessages = function () {
  return Message.findAll({
     attributes: ['id', 'text'],
