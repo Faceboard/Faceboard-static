@@ -25,11 +25,4 @@ Message.findAllMessages = function () {
   });
 };
 
-Message.newMessage = function (text, user) {
-  return Message.create({ user: user, text: text })
-    .then(function (created) {
-      return created;
-    });
-};
-
 module.exports = Message;
