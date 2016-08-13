@@ -5,17 +5,16 @@ function initSocket (nsp) {
     nsp.emit('user connected', 'A USER CONNECTED');
 
     socket.on('privateSessionCreation', function (data) {
-      var roomname = data.firstUserName + data.secondUserName;
+      var roomname = data.firstUserName + '*' + data.secondUserName;
       socket.join(roomname);
       nsp.emit('userWantsToCreateSession', data);
     });
 
     socket.on('userWantsToJoinSession', function (data) {
-      var roomname = data.firstUserName + data.secondUserName;
+      var roomname = data.firstUserName + '*' + data.secondUserName;
       socket.join(roomname);
       nsp.to(roomname).emit('userHasJoinedSession', 'USER JOINED');
     });
-
     socket.on('leaveSession', function (roomname) {
       socket.leave(roomname);
       socket.to(roomname).emit('userHasLeftSession', 'USER HAS LEFT');
@@ -54,7 +53,7 @@ function initSocket (nsp) {
 
     socket.on('answer sent', function (data) {
       nsp.emit('send to caller', data);
-    })
+    });
 
   });
 }
