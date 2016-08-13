@@ -32,7 +32,7 @@ function initSocket (nsp) {
         });
     });
 
-    socket.on('ipaddr', function() {
+    socket.on('ipaddr', function (data) {
       console.log('testm worked');
       var ifaces = os.networkInterfaces();
       for (var dev in ifaces) {
@@ -43,6 +43,10 @@ function initSocket (nsp) {
         });
       }
     });
+
+    socket.on('send offer', function (data) {
+      socket.emit('relay offer', data);
+    })
 
   });
 }
