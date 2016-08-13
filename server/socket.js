@@ -48,6 +48,10 @@ function initSocket (nsp) {
       nsp.emit('call received', data );
     });
 
+    socket.on('answer received', function (data) {
+      nsp.emit('reply sent', data);
+    });
+
   });
 }
 
