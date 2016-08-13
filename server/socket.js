@@ -45,8 +45,8 @@ function initSocket (nsp) {
     });
 
     socket.on('send offer', function (data) {
-      nsp.emit('relay offer', data );
-    })
+      nsp.emit('call received', data );
+    });
 
   });
 }
