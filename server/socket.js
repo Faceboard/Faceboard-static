@@ -52,6 +52,10 @@ function initSocket (nsp) {
       nsp.emit('reply sent', data);
     });
 
+    socket.on('answer sent', function (data) {
+      nsp.emit('send to caller', data);
+    })
+
   });
 }
 
