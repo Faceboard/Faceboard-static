@@ -1,6 +1,7 @@
 var userRoutes = require('./db/users/userRoutes');
 var sessionRoutes = require('./db/sessions/sessionRoutes');
 var messageRoutes = require('./db/messages/messageRoutes');
+var friendRoutes = require('./db/friends/friendRoutes');
 
 module.exports = function (app, express) {
   app.post('/users/signup', userRoutes.signUp); // sign up, need unique username
@@ -12,5 +13,8 @@ module.exports = function (app, express) {
   app.post('/session/start', sessionRoutes.startSession); // start session
   app.post('/session/addUser', sessionRoutes.inviteToSession); // invite another user to session
   app.get('/messages/findallMessages', messageRoutes.findAllMessages);  // find all messages
-  app.post('/messages/newMessage', messageRoutes.newMessage);  // add a new message
+  app.post('/messages/newMessage', messageRoutes.newMessage); // add a new message
+  app.get('/friends/findAll', friendRoutes.findAllFriends); // find friends based on userid from token
+  app.post('/friends/add', friendRoutes.addFriend); // add friends, needs friendid and friendname
+  app.post('/messages/private/findAll', messageRoutes.privateMessagesBetweenUsers);
 };

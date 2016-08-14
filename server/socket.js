@@ -1,4 +1,5 @@
 var Message = require('./db/messages/messageModel');
+var PrivateMessage = require('./db/messages/privateMessageModel');
 
 function initSocket (nsp) {
   nsp.on('connection', function (socket) {
@@ -25,10 +26,32 @@ function initSocket (nsp) {
     });
 
     socket.on('send message', function (data) {
-      Message.create({user: data.username, text: data.text})
-        .then(function (msgObj) {
-          nsp.emit('send message', msgObj);
-        });
+      Message.create({
+        user: data.username,
+        text: data.text
+      })
+      .then(function (msgObj) {
+        nsp.emit('send message', msgObj);
+      });
+    });
+
+    socket.on('joinPrivateChat', function (room) {
+      var roomname = room;
+      socket.join(roomname);
+      socket.to(roomname).emit('confirm private chat', roomname)
+    });
+
+    socket.on('send private message', function (msgObj) {
+      var chatRoom = msgObj.chatRoom;
+
+      PrivateMessage.create({
+        text: msgObj.text,
+        useroneid: msgObj.useroneid,
+        usertwoid: msgObj.usertwoid
+      })
+      .then(function() {
+        socket.to(chatRoom).emit('send private message', msgObj.text);
+      })
     });
 
   });
