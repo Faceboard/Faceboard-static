@@ -1,4 +1,7 @@
 var Message = require('./messageModel');
+var PrivateMessages = require('./privateMessageModel');
+var jwt = require('jwt-simple');
+var secret = process.env.AUTH_SECRET || 'KeYbOaRdCaT';
 
 module.exports = {
 
@@ -18,6 +21,29 @@ module.exports = {
     Message.newMessage(text, user)
       .then(function (created) {
         res.sendStatus(created ? 201 : 401);
+      });
+  },
+
+  privateMessagesBetweenUsers: function (req, res) {
+    var useroneid = jwt.decode(req.headers['x-access-token'], secret).id;
+    var usertwoid = req.body.usertwoid;
+
+    PrivateMessages.findAllBetweenUsers(useroneid, usertwoid)
+      .then(function (messages) {
+        res.json(messages);
+      });
+  },
+
+  // might not even be used
+  addPrivateMessagesBetweenUsers: function (req, res) {
+    var useroneid = jwt.decode(req.headers['x-access-token'], secret).id || req.body.useroneid;
+    var usertwoid = req.body.usertwoid;
+    var text = req.body.text;
+
+    PrivateMessages.create({text, useroneid, usertwoid})
+      .then(function (messages) {
+        console.log(messages.dataValues);
+        res.sendStatus(200);
       });
   }
 
