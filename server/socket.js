@@ -46,7 +46,7 @@ function initSocket (nsp) {
     socket.on('send offer', function (data) {
       socket.join(data.roomname);
 
-      nsp.to(roomname).emit('call received', data );
+      nsp.to(data.roomname).emit('call received', data );
     });
 
     socket.on('answer received', function (data) {
@@ -56,7 +56,7 @@ function initSocket (nsp) {
     socket.on('answer sent', function (data) {
       socket.join(data.roomname);
 
-      nsp.to(roomname).emit('send to caller', data);
+      nsp.to(data.roomname).emit('send to caller', data);
     });
 
   });
