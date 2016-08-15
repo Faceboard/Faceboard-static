@@ -4,7 +4,7 @@ var bcrypt = bluebird.promisifyAll(require('bcrypt-nodejs'));
 var db = require('../db');
 
 var User = db.define('user', {
-  userid: {
+  username: {
     type: Sequelize.STRING,
     validate: {
       notEmpty: true
@@ -33,14 +33,14 @@ User.comparePassword = function (possPassword, currPassword) {
 };
 
 User.signUp = function (name, password) {
-  return User.findOrCreate({ where: { userid: name }, defaults: { password: password }})
+  return User.findOrCreate({ where: { username: name }, defaults: { password: password }})
     .spread(function (user, created) {
       return created;
     });
 };
 
 User.signIn = function (username, password) {
-  return User.findOne({ where: {userid: username } })
+  return User.findOne({ where: {username: username } })
     .then(function (user) {
       if (!user) {
         return null;
