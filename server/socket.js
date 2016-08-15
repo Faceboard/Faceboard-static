@@ -31,34 +31,6 @@ function initSocket (nsp) {
         });
     });
 
-    socket.on('ipaddr', function (data) {
-      console.log('testm worked');
-      var ifaces = os.networkInterfaces();
-      for (var dev in ifaces) {
-        ifaces[dev].forEach(function(details) {
-          if (details.family === 'IPv4' && details.address !== '127.0.0.1') {
-            socket.emit('ipaddr', details.address);
-          }
-        });
-      }
-    });
-
-    socket.on('send offer', function (data) {
-      socket.join(data.roomname);
-
-      nsp.to(data.roomname).emit('call received', data );
-    });
-
-    socket.on('answer received', function (data) {
-      nsp.emit('reply sent', data);
-    });
-
-    socket.on('answer sent', function (data) {
-      socket.join(data.roomname);
-
-      nsp.to(data.roomname).emit('send to caller', data);
-    });
-
   });
 }
 
