@@ -5,17 +5,16 @@ function initSocket (nsp) {
     nsp.emit('user connected', 'A USER CONNECTED');
 
     socket.on('privateSessionCreation', function (data) {
-      var roomname = data.firstUserName + data.secondUserName;
+      var roomname = data.firstUserName + '*' + data.secondUserName;
       socket.join(roomname);
       nsp.emit('userWantsToCreateSession', data);
     });
 
     socket.on('userWantsToJoinSession', function (data) {
-      var roomname = data.firstUserName + data.secondUserName;
+      var roomname = data.firstUserName + '*' + data.secondUserName;
       socket.join(roomname);
       nsp.to(roomname).emit('userHasJoinedSession', 'USER JOINED');
     });
-
     socket.on('leaveSession', function (roomname) {
       socket.leave(roomname);
       socket.to(roomname).emit('userHasLeftSession', 'USER HAS LEFT');
@@ -30,18 +29,6 @@ function initSocket (nsp) {
         .then(function (msgObj) {
           nsp.emit('send message', msgObj);
         });
-    });
-
-    socket.on('ipaddr', function() {
-      console.log('testm worked');
-      var ifaces = os.networkInterfaces();
-      for (var dev in ifaces) {
-        ifaces[dev].forEach(function(details) {
-          if (details.family === 'IPv4' && details.address !== '127.0.0.1') {
-            socket.emit('ipaddr', details.address);
-          }
-        });
-      }
     });
 
   });
