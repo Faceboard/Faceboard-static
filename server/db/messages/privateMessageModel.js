@@ -29,8 +29,8 @@ PrivateMessages.findAllBetweenUsers = function (useroneid, usertwoid) {
         {useroneid: usertwoid}],
       $or: [
         {usertwoid: usertwoid},
-        {usertwoid: useroneid}
-      ]},
+        {usertwoid: useroneid}]
+      },
     order: '"createdAt" DESC'
   });
 };
