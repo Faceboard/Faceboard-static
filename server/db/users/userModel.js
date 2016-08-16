@@ -35,7 +35,7 @@ User.comparePassword = function (possPassword, currPassword) {
 User.signUp = function (name, password) {
   return User.findOrCreate({ where: { username: name }, defaults: { password: password }})
     .spread(function (user, created) {
-      return created;
+      return user;
     });
 };
 
