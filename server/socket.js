@@ -37,7 +37,7 @@ function initSocket (nsp) {
 
     socket.on('makePrivateChat', function (room) {
       socket.join(room);
-      socket.to(room).emit('confirm private chat', room);
+      nsp.to(room).emit('confirm private chat', room);
     });
 
     socket.on('send private message', function (msgObj) {
