@@ -35,9 +35,9 @@ function initSocket (nsp) {
       });
     });
 
-    socket.on('makePrivateChat', function (room) {
-      socket.join(room);
-      nsp.to(room).emit('confirm private chat', room);
+    socket.on('makePrivateChat', function (data) {
+      socket.join(data.pchat);
+      nsp.emit('confirm private chat', data);
     });
 
     socket.on('send private message', function (msgObj) {
@@ -49,8 +49,13 @@ function initSocket (nsp) {
         usertwoid: msgObj.usertwoid
       })
       .then(function() {
-        socket.to(chatRoom).emit('send private message', msgObj);
+        nsp.to(chatRoom).emit('send private message', msgObj);
       })
+    });
+
+    socket.on('join pchat', function (data) {
+      socket.join(data.pchat);
+      nsp.to(chatRoom).emit('pchat confirmed', data);
     });
 
   });
