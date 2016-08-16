@@ -24,8 +24,9 @@ module.exports = {
     var password = req.body.password;
 
     User.signUp(name, password)
-      .then(function (created) {
-        res.sendStatus(created ? 201 : 401);
+      .then(function (newUser) {
+        var token = jwt.encode(newUser, secret);
+        res.json({token: token, user: newUser});
       });
   },
 
