@@ -36,11 +36,13 @@ module.exports = {
 
   // might not even be used
   addPrivateMessagesBetweenUsers: function (req, res) {
-    var useroneid = jwt.decode(req.headers['x-access-token'], secret).id || req.body.useroneid;
+    var useroneid = jwt.decode(req.headers['x-access-token'], secret).id;
+    var useronename = jwt.decode(req.headers['x-access-token'], secret).username;
     var usertwoid = req.body.usertwoid;
+    var usertwoname = req.body.usertwoname;
     var text = req.body.text;
 
-    PrivateMessages.create({text, useroneid, usertwoid})
+    PrivateMessages.create({text, useroneid, usertwoid, useronename, usertwoname})
       .then(function (messages) {
         console.log(messages.dataValues);
         res.sendStatus(200);
