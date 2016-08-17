@@ -48,8 +48,8 @@ function initSocket (nsp) {
         useroneid: msgObj.useroneid,
         usertwoid: msgObj.usertwoid
       })
-      .then(function() {
-        nsp.to(chatRoom).emit('send private message', msgObj);
+      .then(function(data) {
+        socket.to(chatRoom).emit('send private message', msgObj);
       })
     });
 
