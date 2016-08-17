@@ -17,4 +17,5 @@ module.exports = function (app, express) {
   app.get('/friends/findAll', friendRoutes.findAllFriends); // find friends based on userid from token
   app.post('/friends/add', friendRoutes.addFriend); // add friends, needs friendid and friendname
   app.post('/messages/private/findAll', messageRoutes.privateMessagesBetweenUsers);
+  app.post('/messages/private/add', messageRoutes.addPrivateMessagesBetweenUsers);
 };
