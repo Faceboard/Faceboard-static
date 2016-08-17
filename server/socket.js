@@ -53,6 +53,7 @@ function initSocket (nsp) {
       })
     });
 
+    // second user
     socket.on('join pchat', function (data) {
       socket.join(data.pchat);
       nsp.to(chatRoom).emit('pchat confirmed', data);
