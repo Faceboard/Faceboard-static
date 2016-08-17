@@ -46,13 +46,12 @@ function initSocket (nsp) {
       PrivateMessage.create({
         text: msgObj.text,
         useroneid: msgObj.useroneid,
-        usertwoid: msgObj.usertwoid
+        usertwoid: msgObj.usertwoid,
+        useronename: msgObj.useronename,
+        usertwoname: msgObj.usertwoname
       })
 
       nsp.to(chatRoom).emit('send private message', msgObj);
-      // .then(function(data) {
-      //   socket.to(chatRoom).emit('send private message', msgObj);
-      // })
     });
 
     // second user
