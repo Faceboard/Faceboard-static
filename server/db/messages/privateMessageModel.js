@@ -23,7 +23,7 @@ var PrivateMessages = db.define('privatemessages', {
 });
 
 PrivateMessages.findAllBetweenUsers = function (useroneid, usertwoid) {
-  return db.query('SELECT * FROM privatemessages WHERE (useroneid =' + useroneid + ' AND ' + 'usertwoid = ' + usertwoid + ' OR useroneid = ' + usertwoid + ' AND usertwoid = ' + useroneid + ') ORDER BY id');
+  return db.query('SELECT * FROM privatemessages WHERE (useroneid =' + useroneid + ' AND ' + 'usertwoid = ' + usertwoid + ' OR useroneid = ' + usertwoid + ' AND usertwoid = ' + useroneid + ') ORDER BY id', {type: Sequelize.QueryTypes.SELECT});
 }
 
 // PrivateMessages.find = function (useroneid, usertwoid) {
