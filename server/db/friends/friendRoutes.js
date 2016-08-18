@@ -8,14 +8,14 @@ module.exports = {
     var friendid = req.body.friendid;
     var friendname = req.body.friendname;
 
-    Friends.create({
+    Friends.findOrCreate({where: {
       userid: userid,
       friendid: friendid,
-      friendname: friendname
+      friendname: friendname}
     })
-    .then(function (friendData) {
-      res.sendStatus(200);
-    });
+    .spread(function(friends, created) {
+      res.sendStatus(created ? 200 : 401);
+    })
   },
 
   findAllFriends: function (req, res) {
