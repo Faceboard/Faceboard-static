@@ -14,8 +14,8 @@ module.exports = {
       friendname: friendname}
     })
     .spread(function(friends, created) {
-      res.sendStatus(created ? 200 : 401);
-    })
+      res.json(friends);
+    });
   },
 
   findAllFriends: function (req, res) {
