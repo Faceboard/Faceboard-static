@@ -13,8 +13,8 @@ module.exports = {
       friendid: friendid,
       friendname: friendname}
     })
-    .spread(function(friends, created) {
-      res.json(friends);
+    .then(function (friend) {
+      res.json(friend);
     });
   },
 
