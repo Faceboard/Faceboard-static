@@ -8,13 +8,13 @@ module.exports = {
     var friendid = req.body.friendid;
     var friendname = req.body.friendname;
 
-    Friends.findOrCreate({where: {
+    Friends.create({
       userid: userid,
       friendid: friendid,
-      friendname: friendname}
+      friendname: friendname
     })
-    .then(function (friend) {
-      res.json(friend);
+    .then(function (friendData) {
+      res.sendStatus(200);
     });
   },
 
