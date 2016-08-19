@@ -16,6 +16,7 @@ module.exports = {
     .then(function (friendData) {
       res.sendStatus(200);
     });
+
   },
 
   findAllFriends: function (req, res) {
@@ -29,7 +30,10 @@ module.exports = {
   deleteFriend: function (req, res) {
     var userid = jwt.decode(req.headers['x-access-token'], secret).id;
     var friendid = req.body.friendid;
-    Friend.destroy({where: {userid, friendid}});
+    Friends.destroy({where: {userid: userid, friendid:friendid}})
+    .then(function (data) {
+      res.sendStatus(204);
+    })
   }
 
 };
