@@ -1,0 +1,129 @@
+body {
+  background: #3d3d3d;
+  /*color: #ec4118;  */
+  color: #dddddd;
+}
+
+h2 {
+  font-family: tahoma;
+}
+
+h4 {
+  color: #949494;
+}
+
+a {
+  color: #dddddd;
+}
+
+a:hover {
+  color: #d24934;
+  text-decoration: none;
+}
+
+.container {
+  width: 100%;
+}
+
+.headerNav .butNav {
+  padding: 15px;
+  background: #494949;
+  color: #e8e8e8;
+  border-color: #949494;
+}
+
+.headerNav .butNav:focus,
+.headerNav .butNav.focus {
+  color: #333;
+  background-color: #949494;
+  border-color: #adadad;
+}
+
+.headerNav .butNav:hover {
+  color: #494949;
+  background-color: #dddddd;
+  border-color: #494949;
+}
+
+.top {
+  background: #636363;
+  padding: 150px 0px;
+}
+
+.blurb {
+  text-align: center;
+  font-family: tahoma;
+  font-size: 1.4em;
+  letter-spacing: 2px;
+}
+
+.mid {
+  padding: 150px 0px;
+  background: #494949;
+}
+
+.to-center {
+  padding: 3% 0;
+  height: 100%;
+}
+
+.download {
+  max-height: 90%;
+  width: 50%;
+  padding: 5% 0;
+  opacity: 0.9;
+}
+
+.download a {
+  margin: 5% 0;
+  border-color: #949494;
+  color: #494949;
+  cursor: pointer;
+}
+
+.download .mac {
+  border: 2px solid #636363;
+}
+
+.download .mac small {
+  font-style: italic;
+  color: #949494;
+}
+
+.download .mac:hover {
+  color: #dbdbdb;
+  background-color: #636363;
+  border-color: #dbdbdb;
+}
+
+.download .mac:hover small {
+  color: #dbdbdb;
+}
+
+.download .win {
+  border: 2px solid #636363;
+}
+
+.download .win small {
+  font-style: italic;
+  color: #949494;
+}
+
+.download .win:hover {
+  color: #fff;
+  background-color: #636363;
+  border-color: #fff;
+}
+
+.download .win:hover small {
+  color: #fff;
+}
+
+.video {
+  margin-right: 30px;
+}
+
+.bot {
+  padding: 150px 0px;
+  background: #3d3d3d;
+}
