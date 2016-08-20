@@ -16,7 +16,6 @@ module.exports = function (app, express) {
   app.post('/messages/newMessage', messageRoutes.newMessage); // add a new message
   app.get('/friends/findAll', friendRoutes.findAllFriends); // find friends based on userid from token
   app.post('/friends/add', friendRoutes.addFriend); // add friends, needs friendid and friendname
-  app.post('/friends/delete', friendRoutes.deleteFriend); // delete a friend
   app.post('/messages/private/findAll', messageRoutes.privateMessagesBetweenUsers);
   app.post('/messages/private/add', messageRoutes.addPrivateMessagesBetweenUsers);
 };

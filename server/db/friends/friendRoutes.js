@@ -24,15 +24,6 @@ module.exports = {
       .then(function (friends) {
         res.json(friends);
       });
-  },
-
-  deleteFriend: function (req, res) {
-    var userid = jwt.decode(req.headers['x-access-token'], secret).id;
-    var friendid = req.body.friendid;
-    Friends.destroy({where: {userid: userid, friendid:friendid}})
-    .then(function (data) {
-      res.sendStatus(204);
-    })
   }
 
 };
