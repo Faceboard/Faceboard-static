@@ -19,7 +19,7 @@ function initSocket (nsp) {
 
     socket.on('sendWhiteboardID', function (data) {
       socket.to(data.roomname).emit('userHasSentWBID', data.id);
-    })
+    });
 
     socket.on('leaveSession', function (roomname) {
       socket.leave(roomname);
