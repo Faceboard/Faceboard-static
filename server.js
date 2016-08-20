@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
-var db = require('./db/db');
+var db = require('./server/db/db');
 var http = require('http');
 var os = require('os');
 
@@ -13,12 +13,15 @@ var io = require('socket.io').listen(server);
 var nsp = io.of('/test');
 
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/client'));
+app.set('views', __dirname + '/client');
+app.set('view engine', 'ejs');
 
-require('./socket')(nsp);
-require('./routes.js')(app, express);
+require('./server/socket')(nsp);
+require('./server/routes.js')(app, express);
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '../index.html'));
+app.get('/', function(req, res) {
+  res.render('index');
 });
 
 db.sync().then(function () {
