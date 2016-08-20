@@ -8,14 +8,14 @@ module.exports = {
     var friendid = req.body.friendid;
     var friendname = req.body.friendname;
 
-    Friends.create({
+    Friends.findOrCreate({where: {
       userid: userid,
       friendid: friendid,
-      friendname: friendname
+    }, defaults: {friendname: friendname}})
+    .spread(function (friend, created) {
+      res.sendStatus(created ? 200 : 204);
     })
-    .then(function (friendData) {
-      res.sendStatus(200);
-    });
+
   },
 
   findAllFriends: function (req, res) {
@@ -29,7 +29,10 @@ module.exports = {
   deleteFriend: function (req, res) {
     var userid = jwt.decode(req.headers['x-access-token'], secret).id;
     var friendid = req.body.friendid;
-    Friend.destroy({where: {userid, friendid}});
+    Friends.destroy({where: {userid: userid, friendid:friendid}})
+    .then(function (data) {
+      res.sendStatus(204);
+    })
   }
 
 };

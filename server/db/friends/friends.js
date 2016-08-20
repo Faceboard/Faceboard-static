@@ -9,7 +9,7 @@ var Friends = db.define('friends', {
     }
   },
   friendid: {
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
     validate: {
       notEmpty: true
     }
