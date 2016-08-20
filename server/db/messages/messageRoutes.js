@@ -44,7 +44,6 @@ module.exports = {
 
     PrivateMessages.create({text, useroneid, usertwoid, useronename, usertwoname})
       .then(function (messages) {
-        console.log(messages.dataValues);
         res.sendStatus(200);
       });
   }
