@@ -14,8 +14,13 @@ function initSocket (nsp) {
     socket.on('userWantsToJoinSession', function (data) {
       var roomname = data.firstUserName + '*' + data.secondUserName;
       socket.join(roomname);
-      nsp.to(roomname).emit('userHasJoinedSession', 'USER JOINED');
+      nsp.to(roomname).emit('userHasJoinedSession', data.firstUserName);
     });
+
+    socket.on('sendWhiteboardID', function (data) {
+      socket.to(data.roomname).emit('userHasSentWBID', data.id);
+    });
+
     socket.on('leaveSession', function (roomname) {
       socket.leave(roomname);
       socket.to(roomname).emit('userHasLeftSession', 'USER HAS LEFT');
