@@ -1,5 +1,6 @@
 var Message = require('./db/messages/messageModel');
 var PrivateMessage = require('./db/messages/privateMessageModel');
+var Friends = require('./db/friends/friends');
 
 function initSocket (nsp) {
   nsp.on('connection', function (socket) {
@@ -64,6 +65,15 @@ function initSocket (nsp) {
       socket.join(data.pchat);
       nsp.to(data.pchat).emit('pchat confirmed', data);
     });
+
+    socket.on('delete friend', function (data) {
+      var userid = data.userid;
+      var friendname = data.friendname;
+      Friends.destroy({where: {userid: userid, friendname: friendname}})
+      .then(function (data) {
+        socket.emit('deleted friend', 'friend deleted');
+      });
+    })
 
   });
 }
