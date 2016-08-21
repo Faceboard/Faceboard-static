@@ -28,7 +28,8 @@ function initSocket (nsp) {
     socket.on('send message', function (data) {
       Message.create({
         user: data.username,
-        text: data.text
+        text: data.text,
+        userid: data.userid
       })
       .then(function (msgObj) {
         nsp.emit('send message', msgObj);
