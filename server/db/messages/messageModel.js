@@ -12,7 +12,8 @@ var Message = db.define('message', {
   visible: {
     type: Sequelize.BOOLEAN,
     defaultValue: true
-  }
+  },
+  userid: Sequelize.INTEGER
 });
 
 Message.findAllMessages = function () {
