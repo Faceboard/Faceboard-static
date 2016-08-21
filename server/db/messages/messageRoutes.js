@@ -17,8 +17,9 @@ module.exports = {
   newMessage: function (req, res) {
     var text = req.body.text;
     var user = req.body.user;
+    var userid = req.body.userid;
 
-    Message.newMessage(text, user)
+    Message.newMessage(text, user, userid)
       .then(function (created) {
         res.sendStatus(created ? 201 : 401);
       });
