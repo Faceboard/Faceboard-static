@@ -66,16 +66,4 @@ describe('Friends table', function () {
     });
   });
 
-})
-
-
-
-
-
-
-
-
-
-
-
-
+});
