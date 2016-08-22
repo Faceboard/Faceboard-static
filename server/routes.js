@@ -18,4 +18,6 @@ module.exports = function (app, express) {
   app.post('/friends/add', friendRoutes.addFriend); // add friends, needs friendid and friendname
   app.post('/messages/private/findAll', messageRoutes.privateMessagesBetweenUsers);
   app.post('/messages/private/add', messageRoutes.addPrivateMessagesBetweenUsers);
+  app.post('/messages/rooms/add', messageRoutes.createRoomMessage);
+  app.post('/messages/rooms/findAll', messageRoutes.findMessagesInRoom);
 };
