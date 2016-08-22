@@ -83,7 +83,7 @@ function initSocket (nsp) {
         roomid: data.roomid
       });
 
-      nsp.to(data.roomname).emit('send message in room', data);
+      nsp.to(data.roomname).emit('sent message in room', data);
     })
 
     socket.on('delete friend', function (data) {
