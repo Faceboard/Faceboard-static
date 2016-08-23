@@ -15,17 +15,15 @@ module.exports = {
   makeRoom: function (req, res) {
     var userid = jwt.decode(req.headers['x-access-token'], secret).id;
     var roomname = req.body.roomname;
-    var roomid = req.body.roomid;
 
     Room.findOrCreate({
       where: {
         userid: userid,
-        roomname: roomname,
-        roomid: roomid
+        roomname: roomname
       }
     })
     .spread(function (room, created) {
-      res.sendStatus(created ? 200 : 401)
+      res.sendStatus(created ? 200 : 401);
     });
   }
 };

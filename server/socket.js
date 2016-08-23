@@ -2,6 +2,7 @@ var Message = require('./db/messages/messageModel');
 var PrivateMessage = require('./db/messages/privateMessageModel');
 var Friends = require('./db/friends/friends');
 var RoomMessage = require('./db/messages/roomMessageModel');
+var Rooms = require('./db/rooms/roomModel');
 
 function initSocket (nsp) {
   nsp.on('connection', function (socket) {
@@ -92,6 +93,15 @@ function initSocket (nsp) {
       Friends.destroy({where: {userid: userid, friendname: friendname}})
         .then(function () {
           socket.emit('deleted friend', data);
+        });
+    });
+
+    socket.on('delete room', function (data) {
+      var userid = data.userid;
+      var roomname = data.roomname;
+      Rooms.destroy({where: {userid: userid, roomname: roomname}})
+        .then(function() {
+          socket.emit('deleted room', data);
         });
     });
 
