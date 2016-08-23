@@ -90,10 +90,10 @@ function initSocket (nsp) {
       var userid = data.userid;
       var friendname = data.friendname;
       Friends.destroy({where: {userid: userid, friendname: friendname}})
-      .then(function (data) {
-        socket.emit('deleted friend', 'friend deleted');
-      });
-    })
+        .then(function () {
+          socket.emit('deleted friend', data);
+        });
+    });
 
     socket.on('userConnected', function(data) {
       nsp.emit('userConnectedConfirmed', data);
