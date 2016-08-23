@@ -1,5 +1,6 @@
 var Message = require('./messageModel');
 var PrivateMessages = require('./privateMessageModel');
+var RoomMessage = require('./roomMessageModel');
 var jwt = require('jwt-simple');
 var secret = process.env.AUTH_SECRET || 'KeYbOaRdCaT';
 
@@ -46,6 +47,26 @@ module.exports = {
     PrivateMessages.create({text, useroneid, usertwoid, useronename, usertwoname})
       .then(function (messages) {
         res.sendStatus(200);
+      });
+  },
+
+  createRoomMessage: function (req, res) {
+    var text = req.body.text;
+    var userid = jwt.decode(req.headers['x-access-token'], secret).id;
+    var username = jwt.decode(req.headers['x-access-token'], secret).username;
+    var roomid = req.body.roomid;
+
+    RoomMessage.create({text, userid, username, roomid})
+      .then(function (message) {
+        res.sendStatus(200);
+      });
+  },
+
+  findMessagesInRoom: function (req, res) {
+    var roomid = req.body.roomid;
+    RoomMessage.findAllInRoom(roomid)
+      .then(function (messages) {
+        res.json(messages);
       });
   }
 

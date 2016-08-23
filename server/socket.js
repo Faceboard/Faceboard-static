@@ -1,6 +1,7 @@
 var Message = require('./db/messages/messageModel');
 var PrivateMessage = require('./db/messages/privateMessageModel');
 var Friends = require('./db/friends/friends');
+var RoomMessage = require('./db/messages/roomMessageModel');
 
 function initSocket (nsp) {
   nsp.on('connection', function (socket) {
@@ -67,14 +68,32 @@ function initSocket (nsp) {
       nsp.to(data.pchat).emit('pchat confirmed', data);
     });
 
+    socket.on('join room', function (data) {
+      var roomname = data.roomname
+      socket.join(roomname);
+      nsp.to(roomname).emit('joined room', data);
+    });
+
+    socket.on('send message in room', function(data) {
+
+      RoomMessage.create({
+        text: data.text,
+        username: data.username,
+        userid: data.userid,
+        roomid: data.roomid
+      });
+
+      nsp.to(data.roomname).emit('sent message in room', data);
+    })
+
     socket.on('delete friend', function (data) {
       var userid = data.userid;
       var friendname = data.friendname;
       Friends.destroy({where: {userid: userid, friendname: friendname}})
-      .then(function (data) {
-        socket.emit('deleted friend', 'friend deleted');
-      });
-    })
+        .then(function () {
+          socket.emit('deleted friend', data);
+        });
+    });
 
     socket.on('userConnected', function(data) {
       nsp.emit('userConnectedConfirmed', data);
