@@ -31,7 +31,7 @@ var RoomMessage = db.define('roommessages', {
 module.exports = RoomMessage;
 
 RoomMessage.findAllInRoom = function(roomid) {
-  return db.query('SELECT text, username FROM roommessages WHERE roomid=' + roomid + ' ORDER BY id', {
+  return db.query('SELECT * FROM roommessages WHERE roomid=' + roomid + ' ORDER BY id', {
     type: Sequelize.QueryTypes.SELECT
   })
 }
