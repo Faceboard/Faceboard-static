@@ -76,6 +76,13 @@ function initSocket (nsp) {
       });
     })
 
+    socket.on('userConnected', function(data) {
+      nsp.emit('userConnectedConfirmed', data);
+    });
+
+    socket.on('userDisconnected', function(data) {
+      nsp.emit('userDisconnectedConfirmed', data);
+    });
   });
 }
 
