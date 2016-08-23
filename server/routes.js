@@ -2,6 +2,7 @@ var userRoutes = require('./db/users/userRoutes');
 var sessionRoutes = require('./db/sessions/sessionRoutes');
 var messageRoutes = require('./db/messages/messageRoutes');
 var friendRoutes = require('./db/friends/friendRoutes');
+var roomRoutes = require('./db/rooms/roomRoutes');
 
 module.exports = function (app, express) {
   app.post('/users/signup', userRoutes.signUp); // sign up, need unique username
@@ -20,4 +21,6 @@ module.exports = function (app, express) {
   app.post('/messages/private/add', messageRoutes.addPrivateMessagesBetweenUsers);
   app.post('/messages/rooms/add', messageRoutes.createRoomMessage);
   app.post('/messages/rooms/findAll', messageRoutes.findMessagesInRoom);
+  app.get('/rooms/findAll', roomRoutes.findAllRooms);
+  app.post('/rooms/make', roomRoutes.makeRoom);
 };
