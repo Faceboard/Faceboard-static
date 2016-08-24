@@ -35,6 +35,6 @@ RoomMessage.findAllInRoom = function(roomname) {
     where: {
       roomname: roomname
     },
-    order: '"createdAt" DESC'
+    order: '"createdAt" ASC'
   });
 }
