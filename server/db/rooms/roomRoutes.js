@@ -15,11 +15,13 @@ module.exports = {
   makeRoom: function (req, res) {
     var userid = jwt.decode(req.headers['x-access-token'], secret).id;
     var roomname = req.body.roomname;
+    var roomid = req.body.roomid;
 
     Room.findOrCreate({
       where: {
         userid: userid,
-        roomname: roomname
+        roomname: roomname,
+        roomid: roomid
       }
     })
     .spread(function (room, created) {
