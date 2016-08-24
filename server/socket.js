@@ -64,7 +64,7 @@ function initSocket (nsp) {
     });
 
     socket.on('send room invite', function (data) {
-      socket.emit('confirm join room', data);
+      nsp.emit('confirm join room', data);
     });
 
     // second user
