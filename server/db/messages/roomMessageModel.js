@@ -20,8 +20,8 @@ var RoomMessage = db.define('roommessages', {
       notEmpty: true
     }
   },
-  roomid: {
-    type: Sequelize.INTEGER,
+  roomname: {
+    type: Sequelize.STRING,
     validate: {
       notEmpty: true
     }
@@ -30,8 +30,8 @@ var RoomMessage = db.define('roommessages', {
 
 module.exports = RoomMessage;
 
-RoomMessage.findAllInRoom = function(roomid) {
-  return db.query('SELECT * FROM roommessages r WHERE roomid=' + roomid + ' ORDER BY id', {
+RoomMessage.findAllInRoom = function(roomname) {
+  return db.query('SELECT * FROM roommessages WHERE roomname=' + roomname + ' ORDER BY id', {
     type: Sequelize.QueryTypes.SELECT
-  })
+  });
 }

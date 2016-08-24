@@ -49,22 +49,22 @@ module.exports = {
         res.sendStatus(200);
       });
   },
-
+  // COME BACK HERE
   createRoomMessage: function (req, res) {
     var text = req.body.text;
     var userid = jwt.decode(req.headers['x-access-token'], secret).id;
     var username = jwt.decode(req.headers['x-access-token'], secret).username;
-    var roomid = req.body.roomid;
+    var roomname = req.body.roomname;
 
-    RoomMessage.create({text, userid, username, roomid})
+    RoomMessage.create({text, userid, username, roomname})
       .then(function (message) {
         res.sendStatus(200);
       });
   },
 
   findMessagesInRoom: function (req, res) {
-    var roomid = req.body.roomid;
-    RoomMessage.findAllInRoom(roomid)
+    var roomname = req.body.roomname;
+    RoomMessage.findAllInRoom(roomname)
       .then(function (messages) {
         res.json(messages);
       });
