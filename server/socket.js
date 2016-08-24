@@ -85,7 +85,7 @@ function initSocket (nsp) {
         text: data.text,
         username: data.username,
         userid: data.userid,
-        roomid: data.roomid
+        roomname: data.roomname
       });
 
       nsp.to(data.roomname).emit('sent message in room', data);
