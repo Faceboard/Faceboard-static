@@ -63,6 +63,10 @@ function initSocket (nsp) {
       nsp.to(chatRoom).emit('send private message', msgObj);
     });
 
+    socket.on('send room invite', function (data) {
+      socket.emit('confirm join room', data);
+    });
+
     // second user
     socket.on('join pchat', function (data) {
       socket.join(data.pchat);
